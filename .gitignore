@@ -1,0 +1,53 @@
+# --------------------------
+# Environment & Secrets
+# --------------------------
+.env
+config/al-khatem.json
+
+# --------------------------
+# Node.js
+# --------------------------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# --------------------------
+# Build Output
+# --------------------------
+dist/
+build/
+.next/       
+out/
+
+# --------------------------
+# Logs & Temp
+# --------------------------
+*.log
+logs
+*.pid
+*.seed
+*.pid.lock
+
+# --------------------------
+# OS/System Files
+# --------------------------
+.DS_Store
+Thumbs.db
+
+# --------------------------
+# Database
+# --------------------------
+*.sqlite
+*.db
+*.sql
+*.sqlite3
+
+# --------------------------
+# IDE/Editor
+# --------------------------
+.vscode/
+.idea/
+*.swp
+*.swo
