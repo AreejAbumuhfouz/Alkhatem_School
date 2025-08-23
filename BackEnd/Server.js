@@ -25,7 +25,7 @@ app.use(express.json());
 // );
 const allowedOrigins = [
   'http://localhost:5173',
-  'https://alkhatem-school.vercel.app',
+  'https://alkhatem-inventory.vercel.app',
 ];
 
 app.use(
