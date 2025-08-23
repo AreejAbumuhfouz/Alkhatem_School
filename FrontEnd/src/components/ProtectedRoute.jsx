@@ -92,7 +92,7 @@ const ProtectedRoute = ({ children }) => {
       try {
         const res = await fetch('https://alkhatem-school.onrender.com/api/profile', {
           method: 'GET',
-          credentials: 'include', // send cookie
+          credentials: 'true', // send cookie
         });
 
         if (res.ok) {
