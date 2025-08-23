@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { BookOpen, GraduationCap, Users, Calendar } from 'lucide-react';
-import logo from "../assets/logo.png"
+import logo from "../assets/Logo.png"
 const SchoolLoadingSpinner = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 flex items-center justify-center">
