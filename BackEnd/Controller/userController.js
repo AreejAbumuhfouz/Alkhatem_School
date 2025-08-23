@@ -65,6 +65,10 @@ const loginUser = async (req, res) => {
       expiresIn: '1h',
     });
 
+    
+console.log('Token generated:', token);
+console.log('SECRET_KEY:', SECRET_KEY);
+
    res.cookie('token', token, {
   httpOnly: true,
   secure: true, // <-- true means HTTPS required
