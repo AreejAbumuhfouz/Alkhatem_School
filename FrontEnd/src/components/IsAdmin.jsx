@@ -8,7 +8,7 @@ const IsAdmin = ({ children }) => {
   useEffect(() => {
     const checkAdmin = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/profile', {
+        const res = await axios.get('https://alkhatem-school.onrender.com/api/profile', {
           withCredentials: true,
         });
 

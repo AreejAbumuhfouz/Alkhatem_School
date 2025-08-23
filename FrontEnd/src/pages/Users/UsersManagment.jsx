@@ -24,7 +24,7 @@ export default function UsersManagement() {
     try {
       setLoading(true);
       setError(null);
-      const res = await axios.get('http://localhost:5000/api/users');
+      const res = await axios.get('https://alkhatem-school.onrender.com/api/users');
       setUsers(res.data.users);
     } catch (error) {
       console.error('Error fetching users:', error);
@@ -52,7 +52,7 @@ export default function UsersManagement() {
   const handleUpdate = async () => {
     try {
       setLoading(true);
-      await axios.patch(`http://localhost:5000/api/users/${editingUser.id}`, form);
+      await axios.patch(`https://alkhatem-school.onrender.com/api/users/${editingUser.id}`, form);
       await fetchUsers(); // Refresh the users list
       cancelEdit();
     } catch (error) {
@@ -66,7 +66,7 @@ export default function UsersManagement() {
   const handleDeleteToggle = async (userId, isDeleted) => {
     try {
       setLoading(true);
-      await axios.patch(`http://localhost:5000/api/users/${userId}/delete`, { isDeleted });
+      await axios.patch(`https://alkhatem-school.onrender.com/api/users/${userId}/delete`, { isDeleted });
       await fetchUsers(); // Refresh the users list
     } catch (error) {
       console.error('Error deleting/restoring user:', error);

@@ -346,7 +346,7 @@ export default function MyResources() {
     try {
       setLoading(true);
       setError("");
-      const res = await axios.get("http://localhost:5000/api/my-resources", {
+      const res = await axios.get("https://alkhatem-school.onrender.com/api/my-resources", {
         withCredentials: true,
       });
       setResources(res.data);
@@ -417,7 +417,7 @@ export default function MyResources() {
         }
       }
 
-      const res = await axios.post("http://localhost:5000/api/return", data, {
+      const res = await axios.post("https://alkhatem-school.onrender.com/api/return", data, {
         withCredentials: true,
         headers: { "Content-Type": "multipart/form-data" },
       });

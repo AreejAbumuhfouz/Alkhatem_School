@@ -28,7 +28,7 @@ const ResourceList = () => {
   };
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/with-users')
+    axios.get('https://alkhatem-school.onrender.com/api/with-users')
       .then(res => setResources(res.data))
       .catch(err => console.error('Error fetching resources:', err));
   }, []);
@@ -103,7 +103,7 @@ const ResourceList = () => {
         const worksheet = workbook.Sheets[sheetName];
         const jsonData = XLSX.utils.sheet_to_json(worksheet);
         
-        axios.post('http://localhost:5000/api/upload-report', jsonData);
+        axios.post('https://alkhatem-school.onrender.com/api/upload-report', jsonData);
         alert(`Successfully uploaded ${jsonData.length} records from Excel file`);
       } catch (error) {
         console.error('Error reading Excel file:', error);

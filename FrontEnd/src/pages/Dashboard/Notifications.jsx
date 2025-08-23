@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 // Base URL for API
-axios.defaults.baseURL = 'http://localhost:5000/api';
+axios.defaults.baseURL = 'https://alkhatem-school.onrender.com/api';
 
 export default function NotificationsPage({ adminId }) {
   const [notifications, setNotifications] = useState([]);

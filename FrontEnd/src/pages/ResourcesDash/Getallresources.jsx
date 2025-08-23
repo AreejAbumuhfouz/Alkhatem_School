@@ -4,7 +4,7 @@ import { Search, Filter, Edit3, Trash2, RotateCcw, Save, X, ChevronLeft, Chevron
 import axios from 'axios';
 import * as XLSX from 'xlsx';
 import DownloadReport from "./Report"
-axios.defaults.baseURL = 'http://localhost:5000/api';
+axios.defaults.baseURL = 'https://alkhatem-school.onrender.com/api';
 
 export default function ImprovedResourcesTable() {
   const [resources, setResources] = useState([]);
@@ -52,7 +52,7 @@ export default function ImprovedResourcesTable() {
   const fetchResources = () => {
     setLoading(true);
     axios
-      .get('http://localhost:5000/api/getAllResources')
+      .get('https://alkhatem-school.onrender.com/api/getAllResources')
       .then(res => setResources(res.data))
       .catch(err => console.error('Fetch error:', err))
       .finally(() => setLoading(false));
@@ -111,7 +111,7 @@ export default function ImprovedResourcesTable() {
         formData.append('images', editedImage);
       }
 
-      await axios.patch(`http://localhost:5000/api/${id}`, formData, {
+      await axios.patch(`https://alkhatem-school.onrender.com/api/${id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -134,7 +134,7 @@ export default function ImprovedResourcesTable() {
     
     setTogglingId(id);
     try {
-      await axios.patch(`http://localhost:5000/api/${id}/toggle`);
+      await axios.patch(`https://alkhatem-school.onrender.com/api/${id}/toggle`);
       fetchResources();
     } catch (err) {
       console.error('Toggle delete error:', err.response || err);

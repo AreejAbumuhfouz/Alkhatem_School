@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import axios from 'axios';
 
 axios.defaults.withCredentials = true;
-axios.defaults.baseURL = 'http://localhost:5000';
+axios.defaults.baseURL = 'https://alkhatem-school.onrender.com';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import ProtectedRoute from './components/ProtectedRoute';

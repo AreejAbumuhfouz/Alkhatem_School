@@ -474,7 +474,7 @@ export default function ClaimResourceForm() {
   useEffect(() => {
     setLoading({ general: true });
     axios
-      .get('http://localhost:5000/api/teacher', { withCredentials: true })
+      .get('https://alkhatem-school.onrender.com/api/teacher', { withCredentials: true })
       .then(res => {
         setResources(res.data);
         // initialize quantities
@@ -521,7 +521,7 @@ export default function ClaimResourceForm() {
 
     try {
       const res = await axios.post(
-        'http://localhost:5000/api/resources/claim',
+        'https://alkhatem-school.onrender.com/api/resources/claim',
         { resourceId, quantityRequested },
         { withCredentials: true }
       );

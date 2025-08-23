@@ -46,8 +46,8 @@ const Overview = () => {
         
         // Actual API calls
         const [usersRes, resourcesRes] = await Promise.all([
-          axios.get('http://localhost:5000/api/users'),
-          axios.get('http://localhost:5000/api/getAllResources')
+          axios.get('https://alkhatem-school.onrender.com/api/users'),
+          axios.get('https://alkhatem-school.onrender.com/api/getAllResources')
         ]);
         
         const users = usersRes.data.users;

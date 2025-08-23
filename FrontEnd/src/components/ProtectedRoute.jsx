@@ -90,7 +90,7 @@ const ProtectedRoute = ({ children }) => {
   useEffect(() => {
     const verifyAuth = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/profile', {
+        const res = await fetch('https://alkhatem-school.onrender.com/api/profile', {
           method: 'GET',
           credentials: 'include', // send cookie
         });
