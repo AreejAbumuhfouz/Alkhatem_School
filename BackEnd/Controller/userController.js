@@ -46,40 +46,6 @@ const getAllUsers = async (req, res) => {
   }
 };
 
-// const loginUser = async (req, res) => {
-//   const { email, password } = req.body;
-
-//   try {
-//     // Find user who is not soft deleted
-//     const user = await User.findOne({ where: { email, isDeleted: false } });
-//     if (!user) {
-//       return res.status(404).json({ message: 'User not found' });
-//     }
-
-//     // Check password validity
-//     const isPasswordValid = await bcrypt.compare(password, user.password);
-//     if (!isPasswordValid) {
-//       return res.status(400).json({ message: 'Invalid credentials' });
-//     }
-
-//     // Generate JWT token
-//     const token = jwt.sign({ id: user.id, role: user.role }, SECRET_KEY, { expiresIn: '1h' });
-
-//     // Set token as httpOnly cookie
-//     res.cookie('token', token, {
-//   httpOnly: true,
-//   secure: process.env.NODE_ENV === 'production', 
-//   sameSite: 'none', // allow cross-site cookies
-//   maxAge: 60 * 60 * 1000,
-// });
-
-//     // Send success response (no need to send token in JSON if stored in cookie)
-//     res.status(200).json({ message: 'Login successful',name: user.name,
-//       token,  });
-//   } catch (error) {
-//     res.status(500).json({ message: 'Error logging in', error: error.message });
-//   }
-// };
 
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
@@ -99,13 +65,13 @@ const loginUser = async (req, res) => {
       expiresIn: '1h',
     });
 
-    res.cookie('token', token, {
-      httpOnly: true,
-      secure:'production', // true on Render/Vercel
-      sameSite: 'none', // allow cross-site cookies
-maxAge: 12 * 60 * 60 * 1000,
- path: '/',
-    });
+   res.cookie('token', token, {
+  httpOnly: true,
+  secure: true, // <-- true means HTTPS required
+  sameSite: 'none',
+  maxAge: 12 * 60 * 60 * 1000,
+  path: '/',
+});
 
     // ✅ Important: send a response!
     res.status(200).json({ message: 'Login successful', user: { id: user.id, role: user.role } });

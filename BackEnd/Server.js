@@ -26,6 +26,7 @@ app.use(express.json());
 const allowedOrigins = [
   'http://localhost:5173',
   'https://alkhatem-inventory.vercel.app',
+  'https://alkhatem-school.vercel.app',  // Add your actual frontend domain here
 ];
 
 app.use(
