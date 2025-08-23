@@ -104,6 +104,7 @@ const loginUser = async (req, res) => {
       secure:'production', // true on Render/Vercel
       sameSite: 'none', // allow cross-site cookies
 maxAge: 12 * 60 * 60 * 1000,
+ path: '/',
     });
 
     // ✅ Important: send a response!
