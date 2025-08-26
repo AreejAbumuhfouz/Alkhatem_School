@@ -143,13 +143,13 @@ const AdminNotifications = ({ adminId }) => {
                 </div>
               </div>
               <div className="flex items-center gap-2">
-                <button
+                {/* <button
                   onClick={() => setSoundEnabled(!soundEnabled)}
                   className="p-2 bg-white/20 rounded-lg hover:bg-white/30 transition-colors"
                   title={soundEnabled ? "Disable sound" : "Enable sound"}
                 >
                   <Settings className="w-4 h-4" />
-                </button>
+                </button> */}
                 <button
                   onClick={() => setShowPanel(false)}
                   className="p-2 bg-white/20 rounded-lg hover:bg-white/30 transition-colors"
@@ -160,15 +160,7 @@ const AdminNotifications = ({ adminId }) => {
             </div>
             
             {/* Action Buttons */}
-            {unreadCount > 0 && (
-              <button
-                onClick={markAllAsRead}
-                className="mt-3 px-4 py-2 bg-white/20 text-white rounded-lg text-sm font-medium hover:bg-white/30 transition-colors flex items-center gap-2"
-              >
-                <Check className="w-4 h-4" />
-                Mark all as read
-              </button>
-            )}
+            
           </div>
 
           {/* Content */}
@@ -240,12 +232,12 @@ const AdminNotifications = ({ adminId }) => {
                               Mark as read
                             </button>
                           )}
-                          <button
+                          {/* <button
                             onClick={() => deleteNotification(notif.id)}
                             className="px-3 py-1 bg-gray-100 text-gray-600 rounded-md text-xs font-medium hover:bg-red-100 hover:text-red-600 transition-colors"
                           >
                             Delete
-                          </button>
+                          </button> */}
                         </div>
                       </div>
                     </div>

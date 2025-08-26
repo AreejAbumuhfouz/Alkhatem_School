@@ -162,11 +162,11 @@ export default function SideBar({ activeTab, setActiveTab }) {
         `}
       >
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-white/10">
+        <div className="flex items-center justify-between p-4 border-b border-white/10 pt-3">
           <div className="flex items-center gap-3">
             {/* <img src={logo} alt="" className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-lg" /> */}
             {!isSidebarCollapsed && (
-              <div className='flex gap-4'>
+              <div className='flex gap-4 '>
                 <img src={logo} alt="" className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-lg" />
                 <div>
 
@@ -180,7 +180,7 @@ export default function SideBar({ activeTab, setActiveTab }) {
           </div>
 
           {/* Collapse/Expand Button */}
-          <button onClick={toggleSidebar} className="text-white ml-auto">
+          <button onClick={toggleSidebar} className="text-white ml-auto pt-6">
             {isSidebarCollapsed ? <ChevronRight size={20} /> : <ChevronLeft size={20} />}
           </button>
         </div>
