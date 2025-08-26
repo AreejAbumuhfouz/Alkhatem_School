@@ -150,11 +150,43 @@ const currentUser = async (req, res) => {
     }
 };
 
+const updateSelf = async (req, res) => {
+  const userId = req.userId; // Assume auth middleware sets req.userId
+  const { name, password } = req.body;
+
+  if (!name && !password) {
+    return res.status(400).json({ message: 'Nothing to update. Provide name or password.' });
+  }
+
+  try {
+    const user = await User.findOne({ where: { id: userId, isDeleted: false } });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const updates = {};
+    if (name) updates.name = name;
+    if (password) updates.password = await bcrypt.hash(password, 10);
+
+    await user.update(updates);
+
+    const userSafe = { ...user.get() };
+    delete userSafe.password;
+
+    res.status(200).json({ message: 'Profile updated successfully', user: userSafe });
+  } catch (error) {
+    console.error('Error updating profile:', error);
+    res.status(500).json({ message: 'Error updating profile', error: error.message });
+  }
+};
+
+
 module.exports = {
   createUser,
   loginUser,
   updateUser,
   softDeleteUser,
   getAllUsers,
-  currentUser
+  currentUser,
+  updateSelf
 };

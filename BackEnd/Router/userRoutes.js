@@ -6,7 +6,8 @@ const {
   updateUser,
   softDeleteUser,
   getAllUsers,
-  currentUser
+  currentUser,
+  updateSelf
   
 } = require('../Controller/userController'); 
 
@@ -22,6 +23,8 @@ router.post('/register', createUser);
 router.get('/profile',authMiddleware, currentUser);
 
 router.post('/login', loginUser);
+router.patch('/currentprofile', authMiddleware, updateSelf);
+
 
 
 module.exports = router;

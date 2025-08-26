@@ -70,9 +70,9 @@ export default function Home() {
 
   return (
     <div className="flex min-h-screen bg-gradient-to-br from-gray-50 to-blue-50">
-      <SideBar activeTab={activeTab} setActiveTab={setActiveTab} />
 
-      <div className="flex-1 flex flex-col">
+      <SideBar activeTab={activeTab} setActiveTab={setActiveTab} />
+      <div className="min-h-screen flex-1 flex flex-col">
         <Header />
 
         <main className="flex-1 p-4 lg:p-6 overflow-y-auto">
@@ -82,5 +82,8 @@ export default function Home() {
         </main>
       </div>
     </div>
+   
+
+
   );
 }
