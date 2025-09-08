@@ -33,6 +33,7 @@ import SideBar from './Dashboard/SideBar';
 import Header from './Dashboard/Header';
 import IsAdmin from '../components/IsAdmin';
 import MyResources from './ResourcesDash/MyResources';
+import UploadCSV from "./ResourcesDash/UploadCSV"
 export default function Home() {
   const [activeTab, setActiveTab] = useState(() => {
     return localStorage.getItem('activeTab') || 'overview';
@@ -62,6 +63,8 @@ export default function Home() {
         return <ClaimResourceForm />;
       case 'ResourceList':
         return <ResourceList />;
+      case 'UploadCSV':
+        return <UploadCSV />;
      
       default:
         return <Overview />;

@@ -183,7 +183,6 @@ function handleFileChange(e) {
         )}
 
         <div className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden">
-          <UploadCSV/>
           <form onSubmit={handleSubmit} className="p-8 space-y-6">
             
             {/* Resource Name */}

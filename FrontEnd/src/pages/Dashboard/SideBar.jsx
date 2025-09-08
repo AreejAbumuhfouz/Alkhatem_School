@@ -105,6 +105,14 @@ export default function SideBar({ activeTab, setActiveTab }) {
       description: 'View your resources',
       section: 'My Activities'
     },
+    
+    { 
+      id: 'UploadCSV', 
+      label: 'Upload Multi Resources', 
+      icon: FolderOpen,
+      description: 'View your resources',
+      section: 'My Activities'
+    },
   ];
 
   // const menuItems = [
