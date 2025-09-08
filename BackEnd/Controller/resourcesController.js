@@ -152,3 +152,54 @@ exports.deleteResource = async (req, res) => {
         res.status(500).json({ error: 'Server error' });
     }
 };
+
+
+
+exports.uploadResourcesCSV = async (req, res) => {
+    try {
+        if (!req.file) {
+            return res.status(400).json({ error: 'No CSV file uploaded' });
+        }
+
+        const resources = [];
+
+        // قراءة الملف المؤقت الذي رفعتَه عبر multer
+        fs.createReadStream(req.file.path)
+            .pipe(csv())
+            .on('data', (row) => {
+                // row يحتوي على الأعمدة: name, description, location, school_level, quantity, subject, condition
+                resources.push({
+                    name: row.name,
+                    description: row.description,
+                    location: row.location,
+                    school_level: row.school_level,
+                    quantity: Number(row.quantity),
+                    subject: row.subject,
+                    condition: row.condition,
+                    imageUrls: [] // لو CSV لا يحتوي على روابط صور، تترك فارغة
+                });
+            })
+            .on('end', async () => {
+                try {
+                    const createdResources = await Resource.bulkCreate(resources);
+                    // حذف الملف المؤقت بعد القراءة
+                    fs.unlinkSync(req.file.path);
+
+                    res.status(201).json({
+                        message: `${createdResources.length} resources uploaded successfully`,
+                        resources: createdResources
+                    });
+                } catch (dbError) {
+                    console.error('Database error:', dbError);
+                    res.status(500).json({ error: 'Failed to save resources to database' });
+                }
+            })
+            .on('error', (err) => {
+                console.error('CSV parse error:', err);
+                res.status(500).json({ error: 'Failed to parse CSV file' });
+            });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Server error' });
+    }
+};

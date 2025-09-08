@@ -66,7 +66,6 @@ const Resource = sequelize.define('Resource', {
     // Multiple image URLs (use ARRAY for Postgres, JSON for flexibility)
     imageUrls: {
         type: DataTypes.ARRAY(DataTypes.STRING), // ✅ works with PostgreSQL
-        // type: DataTypes.JSON, // alternative if not using Postgres
         allowNull: true,
     },
 
@@ -96,7 +95,6 @@ const Resource = sequelize.define('Resource', {
         allowNull: false,
     },
 
-    // ✅ Add condition for resource state
     condition: {
         type: DataTypes.ENUM('good-new', 'good-used', 'damaged', 'over-used'),
         allowNull: false,
