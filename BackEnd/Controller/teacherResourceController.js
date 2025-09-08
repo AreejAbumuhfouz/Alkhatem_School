@@ -307,18 +307,41 @@ cloudinary.config({
 exports.upload = upload;
 
 // Get all resources with their associated users (many-to-many)
+// exports.getAllResourcesWithUsers = async (req, res) => {
+//   try {
+//     const resources = await Resource.findAll({
+//       where: {
+//         isDeleted: { [Op.ne]: true } // Exclude deleted resources
+//       },
+//       include: {
+//         model: User,
+//         through: {
+//           attributes: ['quantityTaken'], // shows quantityTaken
+//         },
+//         attributes: ['id', 'name', 'email'], // only needed fields
+//       },
+//     });
+
+//     res.status(200).json(resources);
+//   } catch (err) {
+//     console.error('Error fetching resources with users:', err);
+//     res.status(500).json({ message: 'Failed to get resources.' });
+//   }
+// };
+
 exports.getAllResourcesWithUsers = async (req, res) => {
   try {
     const resources = await Resource.findAll({
       where: {
-        isDeleted: { [Op.ne]: true } // Exclude deleted resources
+        isDeleted: { [Op.ne]: true } // استثناء المحذوفين
       },
       include: {
         model: User,
+        required: true, // ✅ يخليها INNER JOIN عشان يرجع بس اللي عندها Users
         through: {
-          attributes: ['quantityTaken'], // shows quantityTaken
+          attributes: ['quantityTaken'], // الكمية المأخوذة
         },
-        attributes: ['id', 'name', 'email'], // only needed fields
+        attributes: ['id', 'name', 'email'], // الحقول المطلوبة من المستخدم
       },
     });
 
@@ -328,6 +351,7 @@ exports.getAllResourcesWithUsers = async (req, res) => {
     res.status(500).json({ message: 'Failed to get resources.' });
   }
 };
+
 
 exports.claimResource = async (req, res) => {
   const userId = req.user.id;

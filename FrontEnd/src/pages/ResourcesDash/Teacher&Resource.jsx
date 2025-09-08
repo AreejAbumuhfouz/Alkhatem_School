@@ -126,18 +126,7 @@ const ResourceList = () => {
   return (
     <div className="min-h-screen  p-2">
       <div className="max-w-full mx-auto">
-        {/* Header */}
-        <div className="bg-white rounded-2xl shadow-xl p-8 mb-8 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
-          <div>
-            <h1 className="text-4xl font-bold text-gray-900 mb-2">Resource Management</h1>
-            <p className="text-gray-600">Track resources and monitor usage across your organization</p>
-          </div>
-          <label className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl cursor-pointer shadow-lg">
-            <Upload className="w-5 h-5" />
-            Upload Excel Report
-            <input type="file" accept=".xlsx,.xls" onChange={handleExcelUpload} className="hidden" />
-          </label>
-        </div>
+        
 
         {/* Search + Filter */}
         <div className="bg-white rounded-2xl shadow-xl p-6 mb-8">
