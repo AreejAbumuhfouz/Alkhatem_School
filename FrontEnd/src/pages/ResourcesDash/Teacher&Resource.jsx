@@ -126,7 +126,18 @@ const ResourceList = () => {
   return (
     <div className="min-h-screen  p-2">
       <div className="max-w-full mx-auto">
-        
+        {/* Header */}
+        <div className="bg-white rounded-2xl shadow-xl p-8 mb-8 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+          <div>
+            <h1 className="text-4xl font-bold text-gray-900 mb-2">Resource Management</h1>
+            <p className="text-gray-600">Track resources and monitor usage across your organization</p>
+          </div>
+          <label className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl cursor-pointer shadow-lg">
+            <Upload className="w-5 h-5" />
+            Upload Excel Report
+            <input type="file" accept=".xlsx,.xls" onChange={handleExcelUpload} className="hidden" />
+          </label>
+        </div>
 
         {/* Search + Filter */}
         <div className="bg-white rounded-2xl shadow-xl p-6 mb-8">
@@ -209,6 +220,24 @@ const ResourceList = () => {
                     <td className="p-3">{resource.quantity}</td>
                     <td className="p-3">{resource.location}</td>
                     <td className="p-3">{resource.subject}</td>
+                    <td className="p-3">
+  {resource.imageUrl ? (
+    <img
+      src={resource.imageUrl}
+      alt={resource.name}
+      className="w-16 h-16 object-cover rounded-lg shadow-sm"
+    />
+  ) : resource.imageUrls && resource.imageUrls.length > 0 ? (
+    <img
+      src={resource.imageUrls[0]}
+      alt={resource.name}
+      className="w-16 h-16 object-cover rounded-lg shadow-sm"
+    />
+  ) : (
+    <span className="text-gray-400">No image</span>
+  )}
+</td>
+
                     <td className="p-3">{resource.school_level}</td>
                     <td className="p-3">
                       {resource.Users?.length > 0 ? (

@@ -329,6 +329,29 @@ exports.upload = upload;
 //   }
 // };
 
+// exports.getAllResourcesWithUsers = async (req, res) => {
+//   try {
+//     const resources = await Resource.findAll({
+//       where: {
+//         isDeleted: { [Op.ne]: true } // استثناء المحذوفين
+//       },
+//       include: {
+//         model: User,
+//         required: true, // ✅ يخليها INNER JOIN عشان يرجع بس اللي عندها Users
+//         through: {
+//           attributes: ['quantityTaken'], // الكمية المأخوذة
+//         },
+//         attributes: ['id', 'name', 'email'], // الحقول المطلوبة من المستخدم
+//       },
+//     });
+
+//     res.status(200).json(resources);
+//   } catch (err) {
+//     console.error('Error fetching resources with users:', err);
+//     res.status(500).json({ message: 'Failed to get resources.' });
+//   }
+// };
+
 exports.getAllResourcesWithUsers = async (req, res) => {
   try {
     const resources = await Resource.findAll({
@@ -337,7 +360,7 @@ exports.getAllResourcesWithUsers = async (req, res) => {
       },
       include: {
         model: User,
-        required: true, // ✅ يخليها INNER JOIN عشان يرجع بس اللي عندها Users
+        required: true, // ✅ يرجع فقط اللي عندها Users
         through: {
           attributes: ['quantityTaken'], // الكمية المأخوذة
         },
@@ -345,12 +368,28 @@ exports.getAllResourcesWithUsers = async (req, res) => {
       },
     });
 
-    res.status(200).json(resources);
+    const modifiedResources = resources.map(resource => {
+      // معالجة الصور
+      let imageProxyUrl = null;
+      if (resource.imageUrl) {
+        imageProxyUrl = `http://localhost:5000/images/${resource.imageUrl}`;
+      } else if (resource.imageUrls && resource.imageUrls.length > 0) {
+        imageProxyUrl = resource.imageUrls[0]; // أول صورة من المصفوفة
+      }
+
+      return {
+        ...resource.toJSON(),
+        imageUrl: imageProxyUrl,
+      };
+    });
+
+    res.status(200).json(modifiedResources);
   } catch (err) {
     console.error('Error fetching resources with users:', err);
     res.status(500).json({ message: 'Failed to get resources.' });
   }
 };
+
 
 
 exports.claimResource = async (req, res) => {
@@ -660,37 +699,70 @@ exports.returnResource = async (req, res) => {
     }
 
     // Handle image upload if any
-    if (req.files && req.files.length > 0) {
-      const uploadedUrls = [];
+    // if (req.files && req.files.length > 0) {
+    //   const uploadedUrls = [];
 
-      for (const file of req.files) {
-        try {
-          const result = await new Promise((resolve, reject) => {
-            const uploadStream = cloudinary.uploader.upload_stream(
-              { 
-                folder: 'resources',
-                resource_type: 'auto' // Auto-detect file type
-              },
-              (error, result) => {
-                if (error) return reject(error);
-                resolve(result);
-              }
-            );
-            streamifier.createReadStream(file.buffer).pipe(uploadStream);
-          });
+    //   for (const file of req.files) {
+    //     try {
+    //       const result = await new Promise((resolve, reject) => {
+    //         const uploadStream = cloudinary.uploader.upload_stream(
+    //           { 
+    //             folder: 'resources',
+    //             resource_type: 'auto' // Auto-detect file type
+    //           },
+    //           (error, result) => {
+    //             if (error) return reject(error);
+    //             resolve(result);
+    //           }
+    //         );
+    //         streamifier.createReadStream(file.buffer).pipe(uploadStream);
+    //       });
 
-          uploadedUrls.push(result.secure_url);
-        } catch (uploadError) {
-          console.error('Error uploading image:', uploadError);
-          // Continue with other uploads even if one fails
-        }
-      }
+    //       uploadedUrls.push(result.secure_url);
+    //     } catch (uploadError) {
+    //       console.error('Error uploading image:', uploadError);
+    //       // Continue with other uploads even if one fails
+    //     }
+    //   }
 
-      // Update images (replace existing or add to imageUrls array)
-      if (uploadedUrls.length > 0) {
-        resource.imageUrls = uploadedUrls;
-      }
+    //   // Update images (replace existing or add to imageUrls array)
+    //   if (uploadedUrls.length > 0) {
+    //     resource.imageUrls = uploadedUrls;
+    //   }
+    // }
+    // Handle image upload if any
+if (req.files && req.files.length > 0) {
+  const uploadedUrls = [];
+
+  for (const file of req.files) {
+    try {
+      const result = await new Promise((resolve, reject) => {
+        const uploadStream = cloudinary.uploader.upload_stream(
+          { 
+            folder: 'resources',
+            resource_type: 'auto' // Auto-detect file type
+          },
+          (error, result) => {
+            if (error) return reject(error);
+            resolve(result);
+          }
+        );
+        streamifier.createReadStream(file.buffer).pipe(uploadStream);
+      });
+
+      uploadedUrls.push(result.secure_url);
+    } catch (uploadError) {
+      console.error('Error uploading image:', uploadError);
+      // Continue with other uploads even if one fails
     }
+  }
+
+  // Add new images to existing array instead of replacing
+  if (uploadedUrls.length > 0) {
+    resource.imageUrls = [...(resource.imageUrls || []), ...uploadedUrls];
+  }
+}
+
 
     await resource.save();
 
