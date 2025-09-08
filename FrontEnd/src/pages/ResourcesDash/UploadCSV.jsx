@@ -73,11 +73,17 @@ const ResourcesUpload = () => {
     setUploadStatus(null);
 
     const formData = new FormData();
+    // Option 1: Use same field name 'files' for all files
     formData.append('files', files.excel);
-    
     files.images.forEach(image => {
       formData.append('files', image);
     });
+
+    // Option 2: Use different field names (uncomment if using upload.fields())
+    // formData.append('excel', files.excel);
+    // files.images.forEach(image => {
+    //   formData.append('images', image);
+    // });
 
     try {
       const response = await fetch('https://alkhatem-school.onrender.com/api/resources/upload-csv', {
