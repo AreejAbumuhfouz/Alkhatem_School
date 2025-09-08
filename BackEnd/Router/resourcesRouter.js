@@ -37,7 +37,7 @@ const {
   createResource,
   updateResource,
   toggleDeleteResource,
-  uploadResourcesCSV, // استدعاء الكنترولر الجديد
+  uploadResourcesExcel, // استدعاء الكنترولر الجديد
 } = require('../Controller/resourcesController');
 
 const verifyToken = require('../config/authMiddleware'); 
@@ -49,7 +49,7 @@ router.get('/getAllResources', getAllResources);
 router.post('/resources', verifyToken, upload.array('images', 5), createResource);
 
 // Upload CSV with multiple resources
-router.post('/resources/upload-csv', upload.single('file'), uploadResourcesCSV);
+router.post('/resources/upload-csv', upload.single('file'), uploadResourcesExcel);
 
 // Update a resource
 router.patch('/:id', upload.array('images', 5), updateResource);
