@@ -49,8 +49,11 @@ router.get('/getAllResources', getAllResources);
 router.post('/resources', verifyToken, upload.array('images', 5), createResource);
 
 // Upload CSV with multiple resources
-router.post('/resources/upload-csv', upload.single('file'), uploadResourcesExcel);
-
+router.post(
+    '/upload-resources',
+    upload.array('files'), // 'files' is the key from frontend FormData
+    uploadResourcesExcel
+);
 // Update a resource
 router.patch('/:id', upload.array('images', 5), updateResource);
 
