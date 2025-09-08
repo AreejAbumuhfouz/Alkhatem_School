@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Upload, CheckCircle, AlertCircle, FileText, MapPin, GraduationCap, Hash, BookOpen, Camera } from 'lucide-react';
-
+import UploadCSV from "./UploadCSV";
 export default function ResourceUpload() {
   const [form, setForm] = useState({
     name: '',
@@ -183,6 +183,7 @@ function handleFileChange(e) {
         )}
 
         <div className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden">
+          <UploadCSV/>
           <form onSubmit={handleSubmit} className="p-8 space-y-6">
             
             {/* Resource Name */}

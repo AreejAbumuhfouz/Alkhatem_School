@@ -49,7 +49,7 @@ router.get('/getAllResources', getAllResources);
 router.post('/resources', verifyToken, upload.array('images', 5), createResource);
 
 // Upload CSV with multiple resources
-router.post('/resources/upload-csv', verifyToken, upload.single('file'), uploadResourcesCSV);
+router.post('/resources/upload-csv', upload.single('file'), uploadResourcesCSV);
 
 // Update a resource
 router.patch('/:id', upload.array('images', 5), updateResource);
