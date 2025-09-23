@@ -38,7 +38,6 @@ const {
   updateResource,
   toggleDeleteResource,
   uploadResourcesFile,
-  uploadResourcesExcel, // استدعاء الكنترولر الجديد
 } = require('../Controller/resourcesController');
 
 const verifyToken = require('../config/authMiddleware'); 
@@ -52,11 +51,7 @@ router.post('/resources', upload.array('images', 5), createResource);
 router.post("/upload-file", upload.single("file"), uploadResourcesFile);
 
 // Upload CSV with multiple resources
-router.post(
-    '/upload-resources',
-    upload.array('files'), // 'files' is the key from frontend FormData
-    uploadResourcesExcel
-);
+
 // Update a resource
 router.patch('/:id', upload.array('images', 5), updateResource);
 
