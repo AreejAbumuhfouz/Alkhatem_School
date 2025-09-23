@@ -46,7 +46,8 @@ const verifyToken = require('../config/authMiddleware');
 router.get('/getAllResources', getAllResources);
 
 // Create a resource (single/multiple images)
-router.post('/resources', verifyToken, upload.array('images', 5), createResource);
+// router.post('/resources', verifyToken, upload.array('images', 5), createResource);
+router.post('/resources', upload.array('images', 5), createResource);
 
 // Upload CSV with multiple resources
 router.post(
