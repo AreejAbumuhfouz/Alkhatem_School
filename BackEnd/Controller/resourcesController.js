@@ -154,7 +154,7 @@ exports.deleteResource = async (req, res) => {
     }
 };
 
-
+/*
 exports.uploadResourcesFile = async (req, res) => {
   try {
     if (!req.file) return res.status(400).json({ error: "No file uploaded" });
@@ -215,9 +215,9 @@ exports.uploadResourcesFile = async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 };
+*/
 
 
-/*
 exports.uploadResourcesFile = async (req, res) => {
   try {
     if (!req.file) return res.status(400).json({ error: "No file uploaded" });
@@ -279,4 +279,3 @@ exports.uploadResourcesFile = async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 };
-*/
