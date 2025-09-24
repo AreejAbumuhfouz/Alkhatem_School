@@ -154,7 +154,6 @@ exports.deleteResource = async (req, res) => {
     }
 };
 
-
 exports.uploadResourcesFile = async (req, res) => {
   try {
     if (!req.file) return res.status(400).json({ error: "No file uploaded" });
@@ -170,9 +169,13 @@ exports.uploadResourcesFile = async (req, res) => {
     for (const row of data) {
       const { name, description, location, school_level, quantity, subject, condition, image_path } = row;
 
-      // رفع الصورة لكل مورد
-      const uploadedImages = [];
-      if (image_path) {
+      let imageUrls = [];
+
+      if (image_path && image_path.startsWith("https://")) {
+        // إذا الرابط موجود بالفعل في Excel، استخدمه مباشرة
+        imageUrls.push(image_path);
+      } else if (image_path) {
+        // إذا لم يكن رابط، ارفع الصورة من المجلد المحلي
         const result = await new Promise((resolve, reject) => {
           const stream = cloudinary.uploader.upload_stream(
             { folder: "resources" },
@@ -181,25 +184,22 @@ exports.uploadResourcesFile = async (req, res) => {
               else resolve(result);
             }
           );
-          // هنا نفترض الصور موجودة محليًا في مجلد /images
-          const fs = require("fs");
-          const path = require("path");
           const imgBuffer = fs.readFileSync(path.join(__dirname, "..", "images", image_path));
           stream.end(imgBuffer);
         });
-        uploadedImages.push(result.secure_url);
+        imageUrls.push(result.secure_url);
       }
 
-      // إنشاء Resource
+      // إنشاء Resource في قاعدة البيانات
       const resource = await Resource.create({
         name,
         description,
-        location,
-        school_level,
+        location: location || null,
+        school_level: school_level || null,
         quantity: parseInt(quantity || 0),
-        subject,
-        condition,
-        imageUrls: uploadedImages,
+        subject: subject || null,
+        condition: condition || null,
+        imageUrls,
       });
 
       createdResources.push(resource);
