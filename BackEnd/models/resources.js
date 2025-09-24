@@ -29,11 +29,11 @@ const Resource = sequelize.define('Resource', {
     },
     location: {
         type: DataTypes.STRING(100),
-        allowNull: false,
+        allowNull: true,
     },
     school_level: {
         type: DataTypes.ENUM('C1', 'C2', 'C3', 'KG', 'ALL'),
-        allowNull: false,
+        allowNull: true,
     },
     quantity: {
         type: DataTypes.INTEGER,
@@ -42,12 +42,12 @@ const Resource = sequelize.define('Resource', {
     },
     subject: {
         type: DataTypes.STRING(100),
-        allowNull: false,
+        allowNull: true,
     },
 
     condition: {
         type: DataTypes.ENUM('good-new', 'good-used', 'damaged', 'over-used'),
-        allowNull: false,
+        allowNull: true,
         defaultValue: 'good-new',
     },
 
