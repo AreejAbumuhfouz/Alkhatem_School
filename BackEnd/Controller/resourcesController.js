@@ -154,6 +154,69 @@ exports.deleteResource = async (req, res) => {
     }
 };
 
+/*
+exports.uploadResourcesFile = async (req, res) => {
+  try {
+    if (!req.file) return res.status(400).json({ error: "No file uploaded" });
+
+    // قراءة Excel
+    const workbook = xlsx.read(req.file.buffer, { type: "buffer" });
+    const sheetName = workbook.SheetNames[0];
+    const sheet = workbook.Sheets[sheetName];
+    const data = xlsx.utils.sheet_to_json(sheet);
+
+    const createdResources = [];
+
+    for (const row of data) {
+      const { name, description, location, school_level, quantity, subject, condition, image_path } = row;
+
+      // رفع الصورة لكل مورد
+      const uploadedImages = [];
+      if (image_path) {
+        const result = await new Promise((resolve, reject) => {
+          const stream = cloudinary.uploader.upload_stream(
+            { folder: "resources" },
+            (error, result) => {
+              if (error) reject(error);
+              else resolve(result);
+            }
+          );
+          // هنا نفترض الصور موجودة محليًا في مجلد /images
+          const fs = require("fs");
+          const path = require("path");
+          const imgBuffer = fs.readFileSync(path.join(__dirname, "..", "images", image_path));
+          stream.end(imgBuffer);
+        });
+        uploadedImages.push(result.secure_url);
+      }
+
+      // إنشاء Resource
+      const resource = await Resource.create({
+        name,
+        description,
+        location,
+        school_level,
+        quantity: parseInt(quantity || 0),
+        subject,
+        condition,
+        imageUrls: uploadedImages,
+      });
+
+      createdResources.push(resource);
+    }
+
+    res.status(201).json({
+      message: `${createdResources.length} resources created successfully`,
+      data: createdResources,
+    });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
+  }
+};
+*/
+
 
 exports.uploadResourcesFile = async (req, res) => {
   try {
