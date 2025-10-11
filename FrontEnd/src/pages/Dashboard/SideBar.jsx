@@ -3,15 +3,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  // BarChart3,
-  // BookOpen,
-  // UserPlus,
-  // Users,
-  // PlusCircle,
-  // ClipboardCheck,
-  // ChevronRight,
-  // ChevronLeft,
-  // LogOut,
+
 
            Home,
   Users,
@@ -106,27 +98,9 @@ export default function SideBar({ activeTab, setActiveTab }) {
       section: 'My Activities'
     },
     
-    { 
-      id: 'UploadCSV', 
-      label: 'Upload Multi Resources', 
-      icon: FolderOpen,
-      description: 'View your resources',
-      section: 'My Activities'
-    },
+   
   ];
 
-  // const menuItems = [
-  //   { id: 'overview', label: 'Overview', icon: Home },
-  //   // Admin-only tabs
-  //   { id: 'UsersManagement', label: 'Users Management', icon: Users, adminOnly: true },
-  //   { id: 'CreateUserModal', label: 'Create User', icon: UserPlus, adminOnly: true },
-  //   { id: 'resources', label: 'Resources Management', icon: BookOpen, adminOnly: true },
-  //   { id: 'addResource', label: 'Add Resource', icon: PlusCircle, adminOnly: true },
-  //   // Visible to all
-  //   { id: 'ResourceList', label: 'Resource & Who Took It', icon: List, adminOnly: true },
-  //   { id: 'claimResource', label: 'Claim Resource', icon: FileCheck },
-  //   { id: 'MyResources', label: 'My Resources', icon: FolderOpen },
-  // ];
 
   const handleSignOut = () => {
     document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';

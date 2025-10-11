@@ -163,7 +163,7 @@ export default function ImprovedResourcesTable() {
 
 
   return (
-    <div className="max-w-7xl mx-auto p-2  min-h-screen">
+    <div className="max-w-8`xl mx-auto p-2  min-h-screen">
       {/* Search and Filter Bar */}
       <div className="bg-white rounded-lg shadow-sm border border-gray-200">
         <div className="p-4">
@@ -338,75 +338,7 @@ export default function ImprovedResourcesTable() {
                           {globalIndex}
                         </td>
                        
-                        {/* <td className="text-center relative w-16 h-16">
-                          {isEditing ? (
-                            <div className="relative w-12 h-12 mx-auto">
-                              {res.imageUrl && (
-                                <img
-                                  src={res.imageUrl}
-                                  alt="Current"
-                                  className="w-12 h-12 object-cover rounded"
-                                />
-                              )}
-                              <label className="absolute inset-0 flex items-center justify-center bg-black/20 hover:bg-black/30 rounded cursor-pointer transition">
-                                <input
-                                  type="file"
-                                  accept="image/*"
-                                  onChange={(e) => setEditedImage(e.target.files[0])}
-                                  className="hidden"
-                                />
-                                <UploadCloud className="h-6 w-6 mr-1 text-blue-500 text-sm opacity-80" />
-                              </label>
-                            </div>
-                          ) : (
-                            <img
-                              src={res.imageUrl}
-                              alt={res.name}
-                              className="w-12 h-12 object-cover mx-auto rounded"
-                            />
-                          )}
-                        </td> */}
-
-           {/* <td className="text-center relative w-32 h-20">
-  {isEditing ? (
-    <div className="relative w-12 h-12 mx-auto">
-      {res.imageUrls && res.imageUrls.length > 0 ? (
-        <img
-          src={res.imageUrls[0]}
-          alt="Current"
-          className="w-12 h-12 object-cover rounded"
-        />
-      ) : (
-        <span className="text-gray-400 text-sm">No image</span>
-      )}
-      <label className="absolute inset-0 flex items-center justify-center bg-black/20 hover:bg-black/30 rounded cursor-pointer transition">
-        <input
-          type="file"
-          accept="image/*"
-          onChange={(e) => setEditedImage(e.target.files[0])}
-          className="hidden"
-        />
-        <UploadCloud className="h-6 w-6 text-blue-500 opacity-80" />
-      </label>
-    </div>
-  ) : (
-    <div className="flex justify-center">
-      {res.imageUrls && res.imageUrls.length > 0 ? (
-        <img
-          src={res.imageUrls[0]}
-          alt={res.name}
-          className="w-12 h-12 object-cover rounded"
-        />
-      ) : (
-        <img
-          src="/placeholder.png"
-          alt="placeholder"
-          className="w-12 h-12 object-cover rounded"
-        />
-      )}
-    </div>
-  )}
-</td> */}
+                       
 <td className="text-center relative w-32 h-20">
   {isEditing ? (
     <div className="relative w-12 h-12 mx-auto">
