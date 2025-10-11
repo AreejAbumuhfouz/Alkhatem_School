@@ -7,7 +7,9 @@ const {
   softDeleteUser,
   getAllUsers,
   currentUser,
-  updateSelf
+  updateSelf,
+  createUsers,
+
   
 } = require('../Controller/userController'); 
 
@@ -24,6 +26,7 @@ router.get('/profile',authMiddleware, currentUser);
 
 router.post('/login', loginUser);
 router.patch('/currentprofile', authMiddleware, updateSelf);
+router.post('/register-many', createUsers); // multiple
 
 
 

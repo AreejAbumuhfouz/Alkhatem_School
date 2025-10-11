@@ -180,9 +180,69 @@ const updateSelf = async (req, res) => {
   }
 };
 
+const createUsers = async (req, res) => {
+  try {
+    const usersData = req.body; // expecting an array of users
 
+    if (!Array.isArray(usersData) || usersData.length === 0) {
+      return res.status(400).json({ message: 'Request body must be a non-empty array of users.' });
+    }
+
+    const usersToCreate = [];
+
+    for (const user of usersData) {
+      const { name, email, password, role, subject_taught } = user;
+
+      if (!name || !email || !password || !role) {
+        return res.status(400).json({ message: 'Missing required fields for one or more users.' });
+      }
+
+      const existingUser = await User.findOne({
+        where: { email, isDeleted: false },
+      });
+
+      if (existingUser) {
+        console.log(`Skipping existing user with email: ${email}`);
+        continue; // skip duplicates
+      }
+
+      const hashedPassword = await bcrypt.hash(password, 10);
+
+      usersToCreate.push({
+        name,
+        email,
+        password: hashedPassword,
+        role,
+        subject_taught: subject_taught || null,
+        isDeleted: false,
+      });
+    }
+
+    if (usersToCreate.length === 0) {
+      return res.status(400).json({ message: 'No new users to create.' });
+    }
+
+    const createdUsers = await User.bulkCreate(usersToCreate);
+
+    // remove password from response
+    const safeUsers = createdUsers.map((user) => {
+      const u = user.get();
+      delete u.password;
+      return u;
+    });
+
+    res.status(201).json({
+      message: `${safeUsers.length} users created successfully.`,
+      users: safeUsers,
+    });
+  } catch (error) {
+    console.error('Error creating users:', error);
+    res.status(500).json({ message: 'Error creating users', error: error.message });
+  }
+};
 module.exports = {
   createUser,
+  createUsers,
   loginUser,
   updateUser,
   softDeleteUser,
