@@ -163,7 +163,7 @@ export default function ImprovedResourcesTable() {
 
 
   return (
-    <div className="max-w-8`xl mx-auto p-2  min-h-screen">
+    <div className="max-w-8``xl mx-auto p-2  min-h-screen">
       {/* Search and Filter Bar */}
       <div className="bg-white rounded-lg shadow-sm border border-gray-200">
         <div className="p-4">

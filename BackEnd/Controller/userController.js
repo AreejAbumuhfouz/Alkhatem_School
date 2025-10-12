@@ -47,11 +47,54 @@ const getAllUsers = async (req, res) => {
 };
 
 
+// const loginUser = async (req, res) => {
+//   const { email, password } = req.body;
+
+//   try {
+//     const user = await User.findOne({ where: { email, isDeleted: false } });
+//     if (!user) {
+//       return res.status(404).json({ message: 'User not found' });
+//     }
+
+//     const isPasswordValid = await bcrypt.compare(password, user.password);
+//     if (!isPasswordValid) {
+//       return res.status(400).json({ message: 'Invalid credentials' });
+//     }
+
+//     const token = jwt.sign({ id: user.id, role: user.role }, process.env.SECRET_KEY, {
+//       expiresIn: '1h',
+//     });
+
+    
+// console.log('Token generated:', token);
+// console.log('SECRET_KEY:', SECRET_KEY);
+
+//    res.cookie('token', token, {
+//   httpOnly: true,
+//   secure: true, // <-- true means HTTPS required
+//   sameSite: 'none',
+//   maxAge: 12 * 60 * 60 * 1000,
+//   path: '/',
+// });
+
+//     // ✅ Important: send a response!
+//     res.status(200).json({ message: 'Login successful', user: { id: user.id, role: user.role } });
+
+//   } catch (error) {
+//     console.error('Login error:', error);
+//     res.status(500).json({ message: 'Server error' });
+//   }
+// };
+
+
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const user = await User.findOne({ where: { email, isDeleted: false } });
+    // Normalize the email
+    const normalizedEmail = email.toLowerCase();
+
+    const user = await User.findOne({ where: { email: normalizedEmail, isDeleted: false } });
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
@@ -65,19 +108,14 @@ const loginUser = async (req, res) => {
       expiresIn: '1h',
     });
 
-    
-console.log('Token generated:', token);
-console.log('SECRET_KEY:', SECRET_KEY);
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'none',
+      maxAge: 12 * 60 * 60 * 1000,
+      path: '/',
+    });
 
-   res.cookie('token', token, {
-  httpOnly: true,
-  secure: true, // <-- true means HTTPS required
-  sameSite: 'none',
-  maxAge: 12 * 60 * 60 * 1000,
-  path: '/',
-});
-
-    // ✅ Important: send a response!
     res.status(200).json({ message: 'Login successful', user: { id: user.id, role: user.role } });
 
   } catch (error) {
@@ -85,6 +123,7 @@ console.log('SECRET_KEY:', SECRET_KEY);
     res.status(500).json({ message: 'Server error' });
   }
 };
+
 
 
 const updateUser = async (req, res) => {
