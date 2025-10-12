@@ -60,14 +60,13 @@ const User = sequelize.define('User', {
         type: DataTypes.STRING(100),
         allowNull: false,
     },
-    email: {
-        type: DataTypes.STRING(150),
-        allowNull: false,
-        unique: true,
-        set(value) {
-            // Always save email in lowercase
-            this.setDataValue('email', value.toLowerCase());
-        },
+  email: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true, // ✅ prevents duplicate emails regardless of case in PostgreSQL (if using CITEXT)
+    validate: {
+      isEmail: true,
+    },
     },
     password: {
         type: DataTypes.STRING(255),
