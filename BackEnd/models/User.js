@@ -14,14 +14,10 @@ const User = sequelize.define('User', {
         type: DataTypes.STRING(100),
         allowNull: false,
     },
-     email: {
-        // ✅ Use CITEXT to make email case-insensitive (requires PostgreSQL)
-        type: DataTypes.CITEXT, 
+    email: {
+        type: DataTypes.STRING(150),
         allowNull: false,
-        unique: true, // Prevents duplicates like Tala@gmail.com / tala@gmail.com
-        validate: {
-            isEmail: true,
-        },
+        unique: true,
     },
     password: {
         type: DataTypes.STRING(255),
