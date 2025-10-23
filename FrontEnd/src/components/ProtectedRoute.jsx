@@ -17,7 +17,7 @@ const SchoolLoadingSpinner = () => {
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full animate-pulse flex items-center justify-center">
               {/* <BookOpen className="w-8 h-8 text-white animate-bounce" /> */}
-              <img src={logo} alt="" className="w-8 h-8 text-white animate-bounce"/>
+              {/* <img src={logo} alt="" className="w-8 h-8 text-white animate-bounce"/> */}
             </div>
           </div>
         </div>
@@ -106,7 +106,7 @@ const ProtectedRoute = ({ children }) => {
         // Reduced loading time to 500ms (0.5 seconds) for quicker loading
         setTimeout(() => {
           setCheckingAuth(false);
-        }, 20);
+        }, 1);
       }
     };
 
