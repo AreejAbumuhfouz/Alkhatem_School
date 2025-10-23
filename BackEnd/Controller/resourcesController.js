@@ -13,6 +13,8 @@ cloudinary.config({
 });
 
 
+
+
 // ================= CREATE RESOURCE =================
 exports.createResource = async (req, res) => {
     try {
@@ -82,25 +84,70 @@ exports.getResourceById = async (req, res) => {
 };
 
 // ================= UPDATE RESOURCE =================
+// exports.updateResource = async (req, res) => {
+//     try {
+//         const { id } = req.params;
+//         const resource = await Resource.findByPk(id);
+//         if (!resource || resource.isDeleted) return res.status(404).json({ error: 'Resource not found' });
+
+//         const { name, description, location, school_level, quantity, subject, condition } = req.body;
+
+//         // Upload new images if provided
+//         let uploadedImages = resource.imageUrls; // Keep old images by default
+//         if (req.files && req.files.length > 0) {
+//             uploadedImages = [];
+//             for (const file of req.files) {
+//                 const result = await cloudinary.uploader.upload(file.path, {
+//     folder: 'resources'
+// });
+
+//                 uploadedImages.push(result.secure_url);
+//                 fs.unlinkSync(file.path);
+//             }
+//         }
+
+//         await resource.update({
+//             name,
+//             description,
+//             location,
+//             school_level,
+//             quantity,
+//             subject,
+//             condition,
+//             imageUrls: uploadedImages
+//         });
+
+//         res.json(resource);
+//     } catch (err) {
+//         console.error(err);
+//         res.status(500).json({ error: 'Server error' });
+//     }
+// };
+
 exports.updateResource = async (req, res) => {
     try {
         const { id } = req.params;
         const resource = await Resource.findByPk(id);
-        if (!resource || resource.isDeleted) return res.status(404).json({ error: 'Resource not found' });
+        if (!resource || resource.isDeleted) {
+            return res.status(404).json({ error: 'Resource not found' });
+        }
 
         const { name, description, location, school_level, quantity, subject, condition } = req.body;
 
-        // Upload new images if provided
-        let uploadedImages = resource.imageUrls; // Keep old images by default
-        if (req.files && req.files.length > 0) {
-            uploadedImages = [];
-            for (const file of req.files) {
-                const result = await cloudinary.uploader.upload(file.path, {
-    folder: 'resources'
-});
+        let uploadedImages = resource.imageUrls || [];
 
+        // Check if a new image was sent
+        if (req.body.images) {
+            // req.body.images is the base64 string or path (depending on your frontend)
+            // Convert it to an array if sending multiple
+            const images = Array.isArray(req.body.images) ? req.body.images : [req.body.images];
+
+            uploadedImages = [];
+            for (const img of images) {
+                const result = await cloudinary.uploader.upload(img, {
+                    folder: 'resources'
+                });
                 uploadedImages.push(result.secure_url);
-                fs.unlinkSync(file.path);
             }
         }
 

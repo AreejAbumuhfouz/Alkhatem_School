@@ -67,9 +67,7 @@ export default function Login() {
     }
   };
 
-  // const handleForgotPassword = () => {
-  //   alert('Please contact your administrator at admin@alkhatem-school.com or call +123-456-7890 for password reset assistance.');
-  // };
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 flex items-center justify-center p-4">
