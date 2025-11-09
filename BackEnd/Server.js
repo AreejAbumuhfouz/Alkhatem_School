@@ -11,22 +11,14 @@ const report = require('./Router/report')
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 app.use(express.urlencoded({ extended: true })); 
 app.use(express.json());
-// app.use(
-//   cors({
-//     origin: 
-//     'http://localhost:5173',
-//     'https://alkhatem-school.vercel.app',
-//     methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE', 'OPTIONS'], // لازم تضيف PATCH هنا
-//     credentials: true, // Allow cookies or authorization headers
-//   })
-// );
+
 const allowedOrigins = [
   'http://localhost:5173',
   'https://alkhatem-inventory.vercel.app',
-  'https://alkhatem-school.vercel.app',  // Add your actual frontend domain here
+  'https://alkhatem-school.vercel.app', 
 ];
 
 app.use(
@@ -45,7 +37,7 @@ app.use(
 );
 
 
-app.use(cookieParser()); // ✅ parse cookies
+app.use(cookieParser()); 
 (async () => {
   try {
     await sequelize.authenticate();
