@@ -24,7 +24,7 @@ export default function UsersManagement() {
     try {
       setLoading(true);
       setError(null);
-      const res = await axios.get('https://alkhatem-school.onrender.com/api/users');
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/users`);
       setUsers(res.data.users);
     } catch (error) {
       console.error('Error fetching users:', error);
