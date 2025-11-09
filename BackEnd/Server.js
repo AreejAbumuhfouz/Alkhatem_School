@@ -19,6 +19,8 @@ const allowedOrigins = [
   'http://localhost:5173',
   'https://alkhatem-inventory.vercel.app',
   'https://alkhatem-school.vercel.app', 
+  'http://qowswggk0cs8k8gg04ckc00o.72.61.93.237.sslip.io'
+
 ];
 
 app.use(
