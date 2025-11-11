@@ -21,8 +21,8 @@ const allowedOrigins = [
   'https://alkhatem-school.vercel.app', 
   'http://qowswggk0cs8k8gg04ckc00o.72.61.93.237.sslip.io',
   'http://nsckock4ccs48o04wwckw8og.72.61.93.237.sslip.io',
-  'https://alkhateminventory.com'            // النطاق الجديد الرسمي
-
+  'https://alkhateminventory.com',
+  'http://alkhateminventory.com'           
 
 ];
 
