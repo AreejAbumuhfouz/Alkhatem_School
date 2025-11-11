@@ -19,7 +19,7 @@ export default function ProfileMenu({ handleSignOut }) {
       const fetchUser = async () => {
         try {
           const response = await axios.get(
-            "https://alkhatem-school.onrender.com/api/profile",
+            "http://qowswggk0cs8k8gg04ckc00o.72.61.93.237.sslip.io/api/profile",
             { withCredentials: true }
           );
           setName(response.data.name || ""); // API returns the user name
