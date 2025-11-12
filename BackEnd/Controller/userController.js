@@ -4,7 +4,6 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User'); // Your User model path
 const SECRET_KEY = process.env.SECRET_KEY;
-const isProduction = process.env.NODE_ENV === 'production';
 
 
 // Create a new user
@@ -164,7 +163,7 @@ const loginUser = async (req, res) => {
 
     const isProduction = process.env.NODE_ENV === 'production';
     res.cookie('token', token, {
-      httpOnly: true,
+      httpOnly: false,
       secure: isProduction,
       sameSite: isProduction ? 'None' : 'Lax',
       path: '/',
