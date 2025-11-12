@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User'); // Your User model path
 const SECRET_KEY = process.env.SECRET_KEY;
+const isProduction = process.env.NODE_ENV === 'production';
 
 
 // Create a new user
@@ -62,27 +63,25 @@ const loginUser = async (req, res) => {
     }
 
     const token = jwt.sign({ id: user.id, role: user.role }, process.env.SECRET_KEY, {
-      expiresIn: '1h',
+      expiresIn: '12h',
     });
 
     
 console.log('Token generated:', token);
 console.log('SECRET_KEY:', SECRET_KEY);
-
-   res.cookie('token', token, {
-  // httpOnly: true,
-  // secure: true, // <-- true means HTTPS required
-  // sameSite: 'none',
-  maxAge: 12 * 60 * 60 * 1000,
-  // path: '/',
+res.cookie('token', token, {
   httpOnly: true,
   secure: isProduction,
   sameSite: isProduction ? 'None' : 'Lax',
-  path: '/'
+  path: '/',
+  maxAge: 12 * 60 * 60 * 1000,
 });
 
-    // ✅ Important: send a response!
-    res.status(200).json({ message: 'Login successful', user: { id: user.id, role: user.role } });
+res.status(200).json({
+  message: 'Login successful',
+  token, // send token explicitly
+  user: { id: user.id, role: user.role }
+});
 
   } catch (error) {
     console.error('Login error:', error);
