@@ -89,54 +89,96 @@ const getAllUsers = async (req, res) => {
 //   }
 // };
 
-export const loginUser = async (req, res) => {
+// export const loginUser = async (req, res) => {
+//   const { email, password } = req.body;
+
+//   try {
+//     // 🔹 1. Validate request
+//     if (!email || !password) {
+//       return res.status(400).json({ message: "Email and password are required" });
+//     }
+
+//     // 🔹 2. Find user
+//     const user = await User.findOne({ where: { email, isDeleted: false } });
+//     if (!user) {
+//       return res.status(404).json({ message: "User not found" });
+//     }
+
+//     // 🔹 3. Compare password
+//     const isPasswordValid = await bcrypt.compare(password, user.password);
+//     if (!isPasswordValid) {
+//       return res.status(400).json({ message: "Invalid credentials" });
+//     }
+
+//     // 🔹 4. Generate JWT token
+//     const token = jwt.sign(
+//       { id: user.id, role: user.role },
+//       process.env.SECRET_KEY,
+//       { expiresIn: "12h" }
+//     );
+
+//     console.log("✅ Token generated:", token);
+
+//     // 🔹 5. Set cookie
+//     res.cookie("token", token, {
+//       httpOnly: true,
+//       secure: isProduction, // true in production for HTTPS
+//       sameSite: isProduction ? "None" : "Lax",
+//       path: "/",
+//       maxAge: 12 * 60 * 60 * 1000, // 12 hours
+//     });
+
+//     // 🔹 6. Send success response (optional token for frontend if needed)
+//     return res.status(200).json({
+//       message: "Login successful",
+//       user: { id: user.id, role: user.role, email: user.email },
+//     });
+
+//   } catch (error) {
+//     console.error(" Login error:", error);
+//     return res.status(500).json({ message: "Server error" });
+//   }
+// };
+const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    // 🔹 1. Validate request
-    if (!email || !password) {
-      return res.status(400).json({ message: "Email and password are required" });
-    }
-
-    // 🔹 2. Find user
     const user = await User.findOne({ where: { email, isDeleted: false } });
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({ message: 'User not found' });
     }
 
-    // 🔹 3. Compare password
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      return res.status(400).json({ message: "Invalid credentials" });
+      return res.status(400).json({ message: 'Invalid credentials' });
     }
 
-    // 🔹 4. Generate JWT token
     const token = jwt.sign(
       { id: user.id, role: user.role },
       process.env.SECRET_KEY,
-      { expiresIn: "12h" }
+      { expiresIn: '12h' }
     );
 
-    console.log("✅ Token generated:", token);
+    console.log('Token generated:', token);
+    console.log('SECRET_KEY:', process.env.SECRET_KEY); // ✅ fixed
 
-    // 🔹 5. Set cookie
-    res.cookie("token", token, {
+    const isProduction = process.env.NODE_ENV === 'production';
+    res.cookie('token', token, {
       httpOnly: true,
-      secure: isProduction, // true in production for HTTPS
-      sameSite: isProduction ? "None" : "Lax",
-      path: "/",
-      maxAge: 12 * 60 * 60 * 1000, // 12 hours
+      secure: isProduction,
+      sameSite: isProduction ? 'None' : 'Lax',
+      path: '/',
+      maxAge: 12 * 60 * 60 * 1000,
     });
 
-    // 🔹 6. Send success response (optional token for frontend if needed)
     return res.status(200).json({
-      message: "Login successful",
-      user: { id: user.id, role: user.role, email: user.email },
+      message: 'Login successful',
+      token, // ✅ only one token
+      user: { id: user.id, role: user.role },
     });
-
   } catch (error) {
-    console.error(" Login error:", error);
-    return res.status(500).json({ message: "Server error" });
+    console.error('Login error:', error);
+    res.status(500).json({ message: 'Server error' });
   }
 };
 
