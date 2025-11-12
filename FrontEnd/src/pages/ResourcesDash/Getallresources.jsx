@@ -4,8 +4,6 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { Search, Filter, Edit3, Trash2, RotateCcw, Save, X, ChevronLeft, ChevronRight, Eye, EyeOff, UploadCloud, Image as ImageIcon } from 'lucide-react';
 import axios from 'axios';
 
-axios.defaults.baseURL = 'https://alkhatem-school.onrender.com/api';
-
 export default function ImprovedResourcesTable() {
   const [resources, setResources] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -57,7 +55,7 @@ export default function ImprovedResourcesTable() {
   const fetchResources = () => {
     setLoading(true);
     axios
-      .get('https://alkhatem-school.onrender.com/api/getAllResources')
+      .get(`${import.meta.env.VITE_API_URL}/api/getAllResources`)
       .then(res => setResources(res.data))
       .catch(err => console.error('Fetch error:', err))
       .finally(() => setLoading(false));

@@ -62,7 +62,7 @@ export default function Header(){
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get('https://alkhatem-school.onrender.com/api/profile', {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/profile`, {
           withCredentials: true, 
         });
         setUser(response.data);

@@ -21,14 +21,7 @@ import {
           
 } from 'lucide-react';
 import logo from "../../assets/Logo.png";
-import IsAdmin from "../../components/IsAdmin";
-
-
-
-
-  
-      
-      
+import IsAdmin from "../../components/IsAdmin";    
     
 export default function SideBar({ activeTab, setActiveTab }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

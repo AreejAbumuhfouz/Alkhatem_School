@@ -36,7 +36,7 @@ const AdminNotifications = ({ adminId }) => {
   const fetchNotifications = async () => {
     if (!adminId) return;
     try {
-      const response = await fetch(`https://alkhatem-school.onrender.com/api/admin/${adminId}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/admin/${adminId}`, {
         method: 'GET',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
@@ -63,7 +63,7 @@ const AdminNotifications = ({ adminId }) => {
 
   const markAsRead = async (id) => {
     try {
-      const response = await fetch(`https://alkhatem-school.onrender.com/api/read/${id}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/read/${id}`, {
         method: 'PUT',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },

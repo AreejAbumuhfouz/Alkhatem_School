@@ -3,7 +3,7 @@ import React from 'react';
 const DownloadReport = () => {
   const handleDownload = async () => {
     try {
-      const response = await fetch('https://alkhatem-school.onrender.com/api/report/download', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/report/download`, {
         method: 'GET',
       });
 

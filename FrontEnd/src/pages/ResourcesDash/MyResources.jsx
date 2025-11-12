@@ -22,7 +22,7 @@ export default function MyResources() {
     try {
       setLoading(true);
       setError("");
-      const res = await axios.get("https://alkhatem-school.onrender.com/api/my-resources", {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/my-resources`, {
         withCredentials: true,
       });
       setResources(res.data);

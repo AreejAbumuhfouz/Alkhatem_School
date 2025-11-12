@@ -19,7 +19,7 @@ export default function ProfileMenu({ handleSignOut }) {
       const fetchUser = async () => {
         try {
           const response = await axios.get(
-            "http://qowswggk0cs8k8gg04ckc00o.72.61.93.237.sslip.io/api/profile",
+            `${import.meta.env.VITE_API_URL}/api/profile`,
             { withCredentials: true }
           );
           setName(response.data.name || ""); // API returns the user name
@@ -59,7 +59,7 @@ export default function ProfileMenu({ handleSignOut }) {
 
     try {
       const res = await axios.patch(
-        "https://alkhatem-school.onrender.com/api/currentprofile",
+        `${import.meta.env.VITE_API_URL}/api/currentprofile`,
         { name: name.trim(), password: password },
         { withCredentials: true }
       );
@@ -70,7 +70,7 @@ export default function ProfileMenu({ handleSignOut }) {
 
       // refresh user info
       const refreshed = await axios.get(
-        "https://alkhatem-school.onrender.com/api/profile",
+        `${import.meta.env.VITE_API_URL}/api/profile`,
         { withCredentials: true }
       );
       setName(refreshed.data.name || "");

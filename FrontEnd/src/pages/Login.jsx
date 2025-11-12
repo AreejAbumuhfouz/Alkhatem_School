@@ -25,7 +25,7 @@ export default function Login() {
     }
 
     try {
-      const res = await fetch('http://qowswggk0cs8k8gg04ckc00o.72.61.93.237.sslip.io/api/login', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/login`, {
         method: 'POST',
         credentials: 'include',
         headers: {

@@ -70,11 +70,15 @@ console.log('Token generated:', token);
 console.log('SECRET_KEY:', SECRET_KEY);
 
    res.cookie('token', token, {
-  httpOnly: true,
-  secure: true, // <-- true means HTTPS required
-  sameSite: 'none',
+  // httpOnly: true,
+  // secure: true, // <-- true means HTTPS required
+  // sameSite: 'none',
   maxAge: 12 * 60 * 60 * 1000,
-  path: '/',
+  // path: '/',
+  httpOnly: true,
+  secure: isProduction,
+  sameSite: isProduction ? 'None' : 'Lax',
+  path: '/'
 });
 
     // ✅ Important: send a response!

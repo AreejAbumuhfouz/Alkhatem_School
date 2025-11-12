@@ -16,8 +16,7 @@ const SchoolLoadingSpinner = () => {
           {/* Inner pulsing circle */}
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full animate-pulse flex items-center justify-center">
-              {/* <BookOpen className="w-8 h-8 text-white animate-bounce" /> */}
-              {/* <img src={logo} alt="" className="w-8 h-8 text-white animate-bounce"/> */}
+              
             </div>
           </div>
         </div>
@@ -56,7 +55,7 @@ const SchoolLoadingSpinner = () => {
         <div className="absolute top-40 right-16 w-1 h-1 bg-purple-400 rounded-full animate-ping opacity-40" style={{animationDelay: '2s'}}></div>
       </div>
 
-      <style jsx>{`
+      {/* <style jsx>{`
         @keyframes float-1 {
           0%, 100% { transform: translateY(0px) rotate(0deg); }
           50% { transform: translateY(-10px) rotate(5deg); }
@@ -78,7 +77,34 @@ const SchoolLoadingSpinner = () => {
         .animate-float-3 {
           animation: float-3 4s ease-in-out infinite;
         }
-      `}</style>
+      `}</style> */}
+
+      <style>
+{`
+  @keyframes float-1 {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(5deg); }
+  }
+  @keyframes float-2 {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-15px) rotate(-5deg); }
+  }
+  @keyframes float-3 {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-8px) rotate(3deg); }
+  }
+  .animate-float-1 {
+    animation: float-1 3s ease-in-out infinite;
+  }
+  .animate-float-2 {
+    animation: float-2 2.5s ease-in-out infinite;
+  }
+  .animate-float-3 {
+    animation: float-3 4s ease-in-out infinite;
+  }
+`}
+</style>
+
     </div>
   );
 };
@@ -90,7 +116,7 @@ const ProtectedRoute = ({ children }) => {
   useEffect(() => {
     const verifyAuth = async () => {
       try {
-        const res = await fetch('https://alkhatem-school.onrender.com/api/profile', {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/profile`, {
           method: 'GET',
            credentials: 'include',
         });
@@ -105,13 +131,34 @@ const ProtectedRoute = ({ children }) => {
       } finally {
         // Reduced loading time to 500ms (0.5 seconds) for quicker loading
         setTimeout(() => {
-          setCheckingAuth(false);
+setCheckingAuth(false);
         }, 1);
       }
     };
 
     verifyAuth();
   }, []);
+
+// useEffect(() => {
+//   const verifyAuth = async () => {
+//     try {
+//       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/profile`, {
+//         method: 'GET',
+//         credentials: 'include',
+//       });
+
+//       setIsAuthenticated(res.ok);
+//     } catch (err) {
+//       console.error('Auth error:', err);
+//       setIsAuthenticated(false);
+//     } finally {
+//       setCheckingAuth(false);
+//     }
+//   };
+
+//   verifyAuth();
+// }, []);
+
 
   if (checkingAuth) {
     return <SchoolLoadingSpinner />;

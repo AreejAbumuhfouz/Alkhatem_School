@@ -301,7 +301,7 @@ export default function UploadResources() {
 
     try {
       const res = await axios.post(
-        "https://alkhatem-school.onrender.com/api/upload-resources",
+        `${import.meta.env.VITE_API_URL}/api/upload-resources`,
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },

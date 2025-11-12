@@ -96,7 +96,7 @@ function handleFileChange(e) {
 });
 
     try {
-      const res = await fetch('https://alkhatem-school.onrender.com/api/resources', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/resources`, {
         method: 'POST',
         body: formData,
         credentials: 'include', // send cookies if needed

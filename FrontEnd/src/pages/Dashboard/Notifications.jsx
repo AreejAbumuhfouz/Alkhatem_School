@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 // Base URL for API
-axios.defaults.baseURL = 'https://alkhatem-school.onrender.com/api';
 
 export default function NotificationsPage({ adminId }) {
   const [notifications, setNotifications] = useState([]);
@@ -15,7 +14,7 @@ export default function NotificationsPage({ adminId }) {
   const fetchNotifications = () => {
     setLoading(true);
     axios
-      .get(`/notifications?recipient_id=${adminId}`)
+      .get(`${import.meta.env.VITE_API_URL}/notifications?recipient_id=${adminId}`)
       .then(res => setNotifications(res.data))
       .catch(err => console.error('Fetch notifications error:', err))
       .finally(() => setLoading(false));
