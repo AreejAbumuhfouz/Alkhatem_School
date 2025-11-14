@@ -47,97 +47,6 @@ const getAllUsers = async (req, res) => {
 };
 
 
-// const loginUser = async (req, res) => {
-//   const { email, password } = req.body;
-
-//   try {
-//     const user = await User.findOne({ where: { email, isDeleted: false } });
-//     if (!user) {
-//       return res.status(404).json({ message: 'User not found' });
-//     }
-
-//     const isPasswordValid = await bcrypt.compare(password, user.password);
-//     if (!isPasswordValid) {
-//       return res.status(400).json({ message: 'Invalid credentials' });
-//     }
-
-//     const token = jwt.sign({ id: user.id, role: user.role }, process.env.SECRET_KEY, {
-//       expiresIn: '12h',
-//     });
-
-    
-// console.log('Token generated:', token);
-// console.log('SECRET_KEY:', SECRET_KEY);
-// res.cookie('token', token, {
-//   httpOnly: true,
-//   secure: isProduction,
-//   sameSite: isProduction ? 'None' : 'Lax',
-//   path: '/',
-//   maxAge: 12 * 60 * 60 * 1000,
-// });
-
-// res.status(200).json({
-//   message: 'Login successful',
-//   token, // send token explicitly
-//   user: { id: user.id, role: user.role }
-// });
-
-//   } catch (error) {
-//     console.error('Login error:', error);
-//     res.status(500).json({ message: 'Server error' });
-//   }
-// };
-
-// export const loginUser = async (req, res) => {
-//   const { email, password } = req.body;
-
-//   try {
-//     // 🔹 1. Validate request
-//     if (!email || !password) {
-//       return res.status(400).json({ message: "Email and password are required" });
-//     }
-
-//     // 🔹 2. Find user
-//     const user = await User.findOne({ where: { email, isDeleted: false } });
-//     if (!user) {
-//       return res.status(404).json({ message: "User not found" });
-//     }
-
-//     // 🔹 3. Compare password
-//     const isPasswordValid = await bcrypt.compare(password, user.password);
-//     if (!isPasswordValid) {
-//       return res.status(400).json({ message: "Invalid credentials" });
-//     }
-
-//     // 🔹 4. Generate JWT token
-//     const token = jwt.sign(
-//       { id: user.id, role: user.role },
-//       process.env.SECRET_KEY,
-//       { expiresIn: "12h" }
-//     );
-
-//     console.log("✅ Token generated:", token);
-
-//     // 🔹 5. Set cookie
-//     res.cookie("token", token, {
-//       httpOnly: true,
-//       secure: isProduction, // true in production for HTTPS
-//       sameSite: isProduction ? "None" : "Lax",
-//       path: "/",
-//       maxAge: 12 * 60 * 60 * 1000, // 12 hours
-//     });
-
-//     // 🔹 6. Send success response (optional token for frontend if needed)
-//     return res.status(200).json({
-//       message: "Login successful",
-//       user: { id: user.id, role: user.role, email: user.email },
-//     });
-
-//   } catch (error) {
-//     console.error(" Login error:", error);
-//     return res.status(500).json({ message: "Server error" });
-//   }
-// };
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
@@ -162,13 +71,19 @@ const loginUser = async (req, res) => {
     console.log('SECRET_KEY:', process.env.SECRET_KEY); // ✅ fixed
 
     const isProduction = process.env.NODE_ENV === 'production';
-    res.cookie('token', token, {
-      httpOnly: false,
-      secure: isProduction,
-      sameSite: isProduction ? 'None' : 'Lax',
-      path: '/',
-      maxAge: 12 * 60 * 60 * 1000,
-    });
+    // res.cookie('token', token, {
+    //   httpOnly: false,
+    //   secure: isProduction,
+    //   sameSite: isProduction ? 'None' : 'Lax',
+    //   path: '/',
+    //   maxAge: 12 * 60 * 60 * 1000,
+    // });
+    res.cookie("token", token, {
+  httpOnly: true,             // JS cannot access it
+  secure: true,               // must be true for HTTPS (production)
+  sameSite: "None",           // allows cross-origin requests
+  maxAge: 12 * 60 * 60 * 1000 // 12 hours
+});
 
     return res.status(200).json({
       message: 'Login successful',

@@ -42,7 +42,9 @@ export default function Login() {
         const expires = new Date();
         expires.setTime(expires.getTime() + 12 * 60 * 60 * 1000);
 
-        document.cookie = `token=${token}; expires=${expires.toUTCString()}; path=/; secure; samesite=strict`;
+        // document.cookie = `token=${token}; expires=${expires.toUTCString()}; path=/; secure; samesite=strict`;
+        document.cookie = `token=${token}; expires=${expires.toUTCString()}; path=/; samesite=lax`;
+
 
         setSuccess(true);
         setTimeout(() => {
