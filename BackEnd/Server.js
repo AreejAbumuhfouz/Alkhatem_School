@@ -21,12 +21,19 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 
-const allowedOrigins = ['http://localhost:5173', 'http://localhost:3000'];
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:3000',
+  'http://alkhateminventory.com',
+  'https://alkhateminventory.com',
+  'http://www.alkhateminventory.com',
+  'https://www.alkhateminventory.com'
+];
 
 app.use(cors({
   origin: function(origin, callback) {
-    if (!origin) return callback(null, true); // يسمح بالطلبات مباشرة من Postman أو curl
-    if (allowedOrigins.indexOf(origin) === -1) {
+    if (!origin) return callback(null, true); 
+    if (!allowedOrigins.includes(origin)) {
       return callback(new Error('Not allowed by CORS'), false);
     }
     return callback(null, true);
