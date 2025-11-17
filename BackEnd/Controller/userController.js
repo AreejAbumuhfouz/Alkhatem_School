@@ -71,13 +71,6 @@ const loginUser = async (req, res) => {
     console.log('SECRET_KEY:', process.env.SECRET_KEY); // ✅ fixed
 
     const isProduction = process.env.NODE_ENV === 'production';
-    // res.cookie('token', token, {
-    //   httpOnly: false,
-    //   secure: isProduction,
-    //   sameSite: isProduction ? 'None' : 'Lax',
-    //   path: '/',
-    //   maxAge: 12 * 60 * 60 * 1000,
-    // });
     res.cookie("token", token, {
   httpOnly: true,             // JS cannot access it
   secure: true,               // must be true for HTTPS (production)

@@ -100,54 +100,7 @@ export default function UsersManagement() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 p-6">
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        {/* <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 p-8 mb-8">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <div className="bg-gradient-to-r from-blue-500 to-indigo-600 p-3 rounded-xl">
-                <Users className="w-8 h-8 text-white" />
-              </div>
-              <div>
-                <h1 className="text-3xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">
-                  Users Management
-                </h1>
-                <p className="text-gray-600 mt-1">
-                  {loading ? 'Loading...' : error ? 'Error loading users' : 
-                   showDeleted ? `${deletedUsersCount} deleted users` : `${activeUsersCount} active users`}
-                </p>
-              </div>
-            </div>
-            <div>
-           
-             <button 
-            className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white px-6 py-3 rounded-xl font-medium flex items-center space-x-2 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 mx-auto"
-            disabled={loading}
-            onClick={() => setIsModalOpen(true)}
-          >
-              <UserPlus className="w-5 h-5" />
-              <span>Add User</span>
-              
-            </button>
-          </div>
-           {/* <CreateUserModal
-          isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-        /> */}
-          {/* </div>
-          
-          {/* Error Message */}
-          {/* {error && (
-            <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg">
-              <p className="text-red-800">{error}</p>
-              <button 
-                onClick={fetchUsers}
-                className="mt-2 text-red-600 hover:text-red-800 font-medium"
-              >
-                Try Again
-              </button>
-            </div>
-          )}
-        </div> */} 
+       
 
         {/* Filters */}
         <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 p-6 mb-8">
