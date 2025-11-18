@@ -93,7 +93,7 @@ export default function MyResources() {
         }
       }
 
-      const res = await axios.post("https://alkhatem-school.onrender.com/api/return", data, {
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/return`, data, {
         withCredentials: true,
         headers: { "Content-Type": "multipart/form-data" },
       });
